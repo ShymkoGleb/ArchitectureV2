@@ -5,22 +5,22 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.architecturev2.models.PostsResponse
 import com.example.architecturev2.repository.PostsRepository
+import com.example.architecturev2.util.Resource
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
-class PostsViewModel(
-    val postsRepository: PostsRepository
-): ViewModel() {
+class PostsViewModel(val postsRepository: PostsRepository): ViewModel() {
 
-    val posts: MutableLiveData<Response<PostsResponse>> = MutableLiveData()
-  //  val articleTest: List<PostsResponse>
+    val posts: MutableLiveData<Resource<PostsResponse>> = MutableLiveData()
+   // var breakingNewsPage = 1
 
     init {
-      //  getPost()
+  //      getPosts()
     }
 
-//    private fun getPost() = viewModelScope.launch {
-//        var response = postsRepository.getPosts()
-//        posts.postValue(response)
-//   }
+    fun getPosts() = viewModelScope.launch {
+        posts.postValue(Resource.Loading())
+        val response = postsRepository.getPosts()
+       // posts.postValue()
+    }
 }

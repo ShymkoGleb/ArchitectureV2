@@ -6,6 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.architecturev2.models.PostsResponse
+/*
 
 @Database(  entities = [PostsResponse::class],
     version = 1
@@ -30,4 +31,4 @@ abstract class PostsDB: RoomDatabase()  {
                 "article_db.db"
             ).build()
     }
-}
+}*/

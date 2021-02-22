@@ -6,24 +6,30 @@
     android:layout_height="match_parent"
     tools:context=".ui.PostsActivity">
 
+    <Button
+        android:id="@+id/btnFragment1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Fragment1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnFragment2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Fragment2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btnFragment1"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <FrameLayout
-        android:id="@+id/flFragment"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:id="@+id/flFragmentLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <fragment
-            android:id="@+id/postNavHostFragment"
-            android:name="com.example.architecturev2.ui.fragments.PostsFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:defaultNavHost="true"
-            app:navGraph="@navigation/post_navigation"/>
-
-    </FrameLayout>
+        app:layout_constraintTop_toBottomOf="@+id/btnFragment1" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

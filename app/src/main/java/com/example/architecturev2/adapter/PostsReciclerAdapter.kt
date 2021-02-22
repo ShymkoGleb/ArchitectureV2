@@ -38,8 +38,7 @@ class PostsReciclerAdapter : RecyclerView.Adapter<PostsReciclerAdapter.PostsView
     override fun getItemCount(): Int {
         return differ.currentList.size
     }
-
-    private var onItemClickListener: ((PostsResponse) -> Unit)? = null
+    //   private var onItemClickListener: ((PostsResponse) -> Unit)? = null
 
     override fun onBindViewHolder(holder: PostsViewHolder, position: Int) {
         val article = differ.currentList[position]
@@ -47,13 +46,13 @@ class PostsReciclerAdapter : RecyclerView.Adapter<PostsReciclerAdapter.PostsView
             tvUserID.text = article.userId.toString()
             tvTitle.text = article.title
             tvBody.text = article.body
-            setOnClickListener {
-                onItemClickListener?.let { it(article) }
-            }
+//            setOnClickListener {
+//                onItemClickListener?.let { it(article) }
+//            }
         }
     }
 
-    fun setOnItemClickListener(listener: (PostsResponse) -> Unit) {
+    /*fun setOnItemClickListener(listener: (PostsResponse) -> Unit) {
         onItemClickListener = listener
-    }
+    }*/
 }
