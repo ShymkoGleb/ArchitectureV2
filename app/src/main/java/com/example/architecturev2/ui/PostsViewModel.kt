@@ -1,37 +1,36 @@
 package com.example.architecturev2.ui
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.architecturev2.models.PostsResponse
 import com.example.architecturev2.repository.PostsRepository
-import com.example.architecturev2.util.Resource
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import retrofit2.Response
 
 class PostsViewModel(val postsRepository: PostsRepository) : ViewModel() {
 
-    val posts: MutableLiveData<List<PostsResponse>> = MutableLiveData()
+    val _posts = MutableLiveData<List<PostsResponse>>()
+    val post:LiveData<List<PostsResponse>> = _posts
     // var breakingNewsPage = 1
 
-    init {
+   /* init {
         getPosts()
-    }
+    }*/
 
-    fun getPosts() = GlobalScope.launch(Dispatchers.IO) {
+    fun getPosts() = viewModelScope.launch(Dispatchers.Main) {
         // posts.postValue(Resource.Loading())
         val response = postsRepository.getPosts()
-        posts.postValue(response.body())
+        _posts.setValue(response.body())
     }
 
-   /* private fun handleBreakingNewsResponse(response: Response<PostsResponse>) : Resource<PostsResponse> {
+   /* private fun handleBreakingNewsResponse(response: Response<List<PostsResponse>>) : Resource<List<PostsResponse>> {
         if(response.isSuccessful) {
             response.body()?.let { resultResponse ->
                 return Resource.Success(resultResponse)
             }
         }
-        return Resource.Error(response.message())
-    }*/
+        return Resource.Error(response.message())*/
+
 }

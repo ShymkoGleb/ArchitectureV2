@@ -11,21 +11,26 @@ import com.example.architecturev2.R
 import com.example.architecturev2.models.PostsResponse
 import kotlinx.android.synthetic.main.item_posts.view.*
 
-class PostsReciclerAdapter() : RecyclerView.Adapter<PostsReciclerAdapter.PostsViewHolder>() {
+class PostsReciclerAdapter : RecyclerView.Adapter<PostsReciclerAdapter.PostsViewHolder>() {
+
+    private val items = mutableListOf<PostsResponse>()
 
     inner class PostsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
-    private val differCallback = object : DiffUtil.ItemCallback<PostsResponse>() {
-        override fun areItemsTheSame(oldItem: PostsResponse, newItem: PostsResponse): Boolean {
-            return oldItem/*.id */== newItem/*.id*/
+
+/*
+       private val differCallback = object : DiffUtil.ItemCallback<PostsResponse>() {
+        override fun areItemsTheSame(oldItem: PostsResponse, newItem:  PostsResponse): Boolean {
+            return oldItem == newItem
         }
 
-        override fun areContentsTheSame(oldItem: PostsResponse, newItem: PostsResponse): Boolean {
+        override fun areContentsTheSame(oldItem: PostsResponse, newItem:  PostsResponse): Boolean {
             return oldItem == newItem
         }
     }
 
     val differ = AsyncListDiffer(this, differCallback)
+*/
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostsViewHolder {
         return PostsViewHolder(
@@ -36,24 +41,28 @@ class PostsReciclerAdapter() : RecyclerView.Adapter<PostsReciclerAdapter.PostsVi
         )
     }
 
-    override fun getItemCount(): Int {
-        return differ.currentList.size
-    }
-    private var onItemClickListener: ((PostsResponse) -> Unit)? = null
+    override fun getItemCount()= items.size
+
+  //  private var onItemClickListener: ((PostsResponse) -> Unit)? = null
 
     override fun onBindViewHolder(holder: PostsViewHolder, position: Int) {
-        val article = differ.currentList[position]
+        val article = items[position]
         holder.itemView.apply {
             tvUserID.text = article.userId.toString()
             tvTitle.text = article.title
             tvBody.text = article.body
 //            setOnClickListener {
 //                onItemClickListener?.let { it(article) }
-//            }
+//           }
         }
     }
+    fun updateAdapter(newList: List<PostsResponse>) {
+        items.clear()
+        items.addAll(newList)
+        notifyDataSetChanged()
+    }
 
-    /*fun setOnItemClickListener(listener: (PostsResponse) -> Unit) {
+  /*  fun setOnItemClickListener(listener: (PostsResponse) -> Unit) {
         onItemClickListener = listener
     }*/
 }

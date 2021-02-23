@@ -6,16 +6,14 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.architecturev2.models.PostsResponse
-/*
 
-@Database(  entities = [PostsResponse::class],
-    version = 1
-)
+
+@Database(entities = [PostsResponse::class], version = 1)
 abstract class PostsDB: RoomDatabase()  {
 
     abstract fun getPostDao(): PostsDao
 
-    companion object {
+   /* companion object {
         @Volatile
         private var instance: PostsDB? = null
         private val LOCK = Any()
@@ -30,5 +28,5 @@ abstract class PostsDB: RoomDatabase()  {
                 PostsDB::class.java,
                 "article_db.db"
             ).build()
-    }
-}*/
+    }*/
+}
