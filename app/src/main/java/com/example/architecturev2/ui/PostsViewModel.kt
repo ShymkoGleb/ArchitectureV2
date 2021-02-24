@@ -4,18 +4,19 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.architecturev2.domain.CheckPostRulesUseCase
 import com.example.architecturev2.models.PostsResponse
 import com.example.architecturev2.repository.PostsRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class PostsViewModel(val postsRepository: PostsRepository) : ViewModel() {
+class PostsViewModel /*@Inject constructor */(val postsRepository: PostsRepository) : ViewModel() {
 
     val _posts = MutableLiveData<List<PostsResponse>>()
-    val post:LiveData<List<PostsResponse>> = _posts
+    val post: LiveData<List<PostsResponse>> = _posts
     // var breakingNewsPage = 1
 
-   /* init {
+    /* init {
         getPosts()
     }*/
 
@@ -25,12 +26,23 @@ class PostsViewModel(val postsRepository: PostsRepository) : ViewModel() {
         _posts.setValue(response.body())
     }
 
-   /* private fun handleBreakingNewsResponse(response: Response<List<PostsResponse>>) : Resource<List<PostsResponse>> {
-        if(response.isSuccessful) {
-            response.body()?.let { resultResponse ->
-                return Resource.Success(resultResponse)
-            }
+  /*  fun createPost(title: String, body: String, userId: Int): Boolean {
+        return if (CheckPostRulesUseCase(title, body).invoke() && userId > 0) {
+            insertPost(
+                userId = userId,
+                title = title,
+                body = body
+            )
+            true
+        } else {
+            false
         }
-        return Resource.Error(response.message())*/
+    }*/
 
+ /*   private fun insertPost(userId: Int, title: String, body: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            postsRepository.insertUserPostLocal(userId, title, body)
+        }
+        getPosts()
+    }*/
 }

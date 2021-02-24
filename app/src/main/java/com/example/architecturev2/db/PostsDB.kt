@@ -13,7 +13,7 @@ abstract class PostsDB: RoomDatabase()  {
 
     abstract fun getPostDao(): PostsDao
 
-   /* companion object {
+    companion object {
         @Volatile
         private var instance: PostsDB? = null
         private val LOCK = Any()
@@ -28,5 +28,5 @@ abstract class PostsDB: RoomDatabase()  {
                 PostsDB::class.java,
                 "article_db.db"
             ).build()
-    }*/
+    }
 }

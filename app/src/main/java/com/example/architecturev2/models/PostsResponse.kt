@@ -5,7 +5,6 @@ import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
 @Entity (tableName = "post_response_table")
-
 data class PostsResponse (
     @PrimaryKey(autoGenerate = true) val idKey: Int? = null,
     @SerializedName("id") val id: Int? = null,

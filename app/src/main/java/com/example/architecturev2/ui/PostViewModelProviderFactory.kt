@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.architecturev2.repository.PostsRepository
 import java.nio.file.attribute.PosixFileAttributeView
 
-class PostViewModelProviderFactory(
+class PostViewModelProviderFactory/* @Inject constructor*/(
     val postsRepository: PostsRepository
 ) : ViewModelProvider.Factory {
 
