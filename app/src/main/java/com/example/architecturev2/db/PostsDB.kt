@@ -26,7 +26,9 @@ abstract class PostsDB: RoomDatabase()  {
             Room.databaseBuilder(
                 context.applicationContext,
                 PostsDB::class.java,
-                "article_db.db"
-            ).build()
+                "articledatabase"
+            )
+                .fallbackToDestructiveMigration()
+                .build()
     }
 }

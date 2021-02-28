@@ -22,7 +22,7 @@ class PostsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_posts)
         setupbinding()
 
-        val newsRepository = PostsRepository(/*PostsDB(this)*/)
+        val newsRepository = PostsRepository(PostsDB(this))
         val viewModelProviderFactory = PostViewModelProviderFactory(newsRepository)
         viewModel = ViewModelProvider(this, viewModelProviderFactory).get(PostsViewModel::class.java)
         //bottomNavigationView.setupWithNavController(newsNavHostFragment.findNavController())

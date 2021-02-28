@@ -1,14 +1,19 @@
 package com.example.architecturev2.adapter
 
+import android.annotation.SuppressLint
+import android.graphics.Color
+import android.system.Os.bind
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.MutableLiveData
-import androidx.recyclerview.widget.AsyncListDiffer
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewbinding.ViewBinding
 import com.example.architecturev2.R
+import com.example.architecturev2.databinding.ActivityPostsBinding.bind
+import com.example.architecturev2.databinding.FragmentFirstBinding.bind
+import com.example.architecturev2.databinding.FragmentSecondBinding.bind
 import com.example.architecturev2.models.PostsResponse
+import com.example.architecturev2.repository.UserStatus
 import kotlinx.android.synthetic.main.item_posts.view.*
 
 class PostsReciclerAdapter : RecyclerView.Adapter<PostsReciclerAdapter.PostsViewHolder>() {
@@ -16,21 +21,6 @@ class PostsReciclerAdapter : RecyclerView.Adapter<PostsReciclerAdapter.PostsView
     private val items = mutableListOf<PostsResponse>()
 
     inner class PostsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
-
-
-/*
-       private val differCallback = object : DiffUtil.ItemCallback<PostsResponse>() {
-        override fun areItemsTheSame(oldItem: PostsResponse, newItem:  PostsResponse): Boolean {
-            return oldItem == newItem
-        }
-
-        override fun areContentsTheSame(oldItem: PostsResponse, newItem:  PostsResponse): Boolean {
-            return oldItem == newItem
-        }
-    }
-
-    val differ = AsyncListDiffer(this, differCallback)
-*/
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostsViewHolder {
         return PostsViewHolder(
@@ -41,9 +31,7 @@ class PostsReciclerAdapter : RecyclerView.Adapter<PostsReciclerAdapter.PostsView
         )
     }
 
-    override fun getItemCount()= items.size
-
-  //  private var onItemClickListener: ((PostsResponse) -> Unit)? = null
+    override fun getItemCount() = items.size
 
     override fun onBindViewHolder(holder: PostsViewHolder, position: Int) {
         val article = items[position]
@@ -51,18 +39,33 @@ class PostsReciclerAdapter : RecyclerView.Adapter<PostsReciclerAdapter.PostsView
             tvUserID.text = article.userId.toString()
             tvTitle.text = article.title
             tvBody.text = article.body
-//            setOnClickListener {
-//                onItemClickListener?.let { it(article) }
-//           }
+            rvGeneralID
+
         }
     }
+
     fun updateAdapter(newList: List<PostsResponse>) {
         items.clear()
         items.addAll(newList)
         notifyDataSetChanged()
     }
-
-  /*  fun setOnItemClickListener(listener: (PostsResponse) -> Unit) {
-        onItemClickListener = listener
+/*
+    @SuppressLint("ResourceType")
+    fun bind(model: UsersPostUIModel) {
+        binding.xml = model
+        if (model.status == UserStatus.NORMAL) {
+            binding.tvBody.setBackgroundColor(Color.parseColor("#FFFFFF"))
+        }
+        else if (model.status == UserStatus.WARNING) {
+            binding.tvBody.setBackgroundColor(Color.parseColor("#FFD900"))
+        }
+        else if (model.status == UserStatus.BANNED) {
+            binding.tvBody.setBackgroundColor(Color.parseColor("#FF0000"))
+        }
     }*/
+
+
+
+
+
 }
