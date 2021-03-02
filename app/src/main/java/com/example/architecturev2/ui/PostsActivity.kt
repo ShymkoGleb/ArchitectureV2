@@ -14,7 +14,7 @@ import com.example.architecturev2.ui.fragments.SecondFragment
 class PostsActivity : AppCompatActivity() {
 
     lateinit var viewModel: PostsViewModel
-    lateinit var postsAdapter: PostsReciclerAdapter
+//    lateinit var postsAdapter: PostsReciclerAdapter
     lateinit var binding: ActivityPostsBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,8 +25,6 @@ class PostsActivity : AppCompatActivity() {
         val newsRepository = PostsRepository(PostsDB(this))
         val viewModelProviderFactory = PostViewModelProviderFactory(newsRepository)
         viewModel = ViewModelProvider(this, viewModelProviderFactory).get(PostsViewModel::class.java)
-        //bottomNavigationView.setupWithNavController(newsNavHostFragment.findNavController())
-
 
         val firstFragment = FirstFragment()
         val secondFragment = SecondFragment()

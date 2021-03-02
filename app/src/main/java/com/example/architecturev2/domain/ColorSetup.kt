@@ -3,12 +3,16 @@ package com.example.architecturev2.domain
 import com.example.architecturev2.models.PostsResponse
 import com.example.architecturev2.repository.UserRepository
 
-class ColorSetup(
-   private val postsResponse: PostsResponse)
+class ColorSetup(private val postsResponse: PostsResponse)
 {
-    private fun colorSetup(){
-        if (postsResponse.userId in UserRepository.ListOfIdForUserWithBann){
-
+    fun colorSetup():String{
+        val color = "#FFFFFF"
+        if (postsResponse.userId in UserRepository.ListOfIdForUserWithBann) {
+            return "#FF0000"
         }
+        else if (postsResponse.userId in UserRepository.ListOfIdForUserWithWarning){
+            return "#FFFF00"
+        }
+        return color
     }
 }

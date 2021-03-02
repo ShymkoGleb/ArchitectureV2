@@ -16,15 +16,9 @@ import com.example.architecturev2.ui.PostsViewModel
 
 class FirstFragment : Fragment(R.layout.fragment_first) {
 
-    companion object{
-        private var getPostFlag:Boolean = false
-    }
-
     lateinit var viewModel: PostsViewModel
     lateinit var postsReciclerAdapter: PostsReciclerAdapter
     lateinit var binding: FragmentFirstBinding
-
-    val TAG = "BreakingNewsFragment"
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,14 +30,12 @@ class FirstFragment : Fragment(R.layout.fragment_first) {
         return view
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = (activity as PostsActivity).viewModel
         observeGitHubRepos()
         setupRecyclerView()
-        viewModel.insertPostfromApi(getPostFlag)
-        getPostFlag=true
+        viewModel.insertPostfromApi()
     }
 
     private fun observeGitHubRepos() {

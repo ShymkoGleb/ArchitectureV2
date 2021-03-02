@@ -19,13 +19,8 @@ class PostsViewModel /*@Inject constructor */(val postsRepository: PostsReposito
     val _posts = MutableLiveData<List<PostsResponse>>()
     val post: LiveData<List<PostsResponse>> = _posts
 
-    /* fun getPosts() = viewModelScope.launch(Dispatchers.Main) {
-         val response = postsRepository.getPosts()
-         _posts.setValue(response.body())
-     }*/
-
     fun createPost(userId: Int, title: String, body: String): Boolean {
-        return if (ValidationPost(userId, title, body).invoke()/* && userId > 10*/) {
+        return if (ValidationPost(userId, title, body).invoke()) {
             println("PostsViewModel ->createPost() ->if")
             insertPost(
                 userId = userId,
@@ -50,12 +45,11 @@ class PostsViewModel /*@Inject constructor */(val postsRepository: PostsReposito
         }
     }
 
-    fun insertPostfromApi(getPostFlag: Boolean) {
+    fun insertPostfromApi() {
 
         viewModelScope.launch(Dispatchers.IO) {
             if (postsRepository.postsDB.getPostDao().getAllPosts().isEmpty()) {
                 val response = postsRepository.getPosts()
-                //  _posts.postValue(response.body())
                 println("PostsViewModel ->insertPost()" + response.body())
                 val sortedPostsResponse = SortingUseCase(response.body()).sortPostsResponse()
                 saveDataToLocal(sortedPostsResponse)

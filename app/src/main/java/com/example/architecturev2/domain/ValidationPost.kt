@@ -1,6 +1,5 @@
 package com.example.architecturev2.domain
 
-import java.util.*
 
 class ValidationPost(
     private val userId:Int,
@@ -10,7 +9,6 @@ class ValidationPost(
     companion object {
         private val forbiddenWords = listOf("Реклама", "Товар", "Куплю")
     }
-
 
     fun invoke(): Boolean {
         if (userId<10){
