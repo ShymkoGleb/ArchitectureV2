@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="layoutmargine">20dp</dimen>
+    <dimen name="marginTop">16dp</dimen>
+    <dimen name="marginStart">20dp</dimen>
+    <dimen name="tvTitleLayoutWidth">0dp</dimen>
+    <dimen name="textSize">15sp</dimen>
+    <dimen name="padding">8sp</dimen>
+    <dimen name="marginEnd">20dp</dimen>
+</resources>

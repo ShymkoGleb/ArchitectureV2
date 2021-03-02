@@ -28,7 +28,8 @@ import javax.inject.Inject
 class SecondFragment : Fragment(R.layout.fragment_second) {
 
     private lateinit var binding: FragmentSecondBinding
-   // @Inject
+
+    //@Inject
     private lateinit var viewModel: PostsViewModel
 
     override fun onCreateView(
@@ -42,8 +43,8 @@ class SecondFragment : Fragment(R.layout.fragment_second) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-              viewModel = (activity as PostsActivity).viewModel
-   //      setupDagger()
+        viewModel = (activity as PostsActivity).viewModel
+    //    setupDagger()
         setupListeners()
     }
 
@@ -52,20 +53,20 @@ class SecondFragment : Fragment(R.layout.fragment_second) {
             .builder()
             .appModule(AppModule(requireContext()))
             .build()
-            .injectFragment2(this)
+            .getPostViewFactory()
     }
 
     private fun setupListeners() {
         binding.btnAddPost.setOnClickListener {
             val id: Int = binding.etId.text.toString().toInt()
-            val title:String = binding.etAddTitle.text.toString()
-            val body:String = binding.etAddBody.text.toString()
+            val title: String = binding.etAddTitle.text.toString()
+            val body: String = binding.etAddBody.text.toString()
             createPost(id, title, body)
         }
     }
 
     private fun createPost(id: Int, title: String, body: String) {
-        if (viewModel.createPost(id,title, body)
+        if (viewModel.createPost(id, title, body)
         ) {
             Toast.makeText(requireContext(), "Post created", Toast.LENGTH_SHORT)
                 .show()
