@@ -12,10 +12,13 @@ import com.example.architecturev2.databinding.FragmentFirstBinding
 import com.example.architecturev2.models.PostsResponse
 import com.example.architecturev2.ui.PostsActivity
 import com.example.architecturev2.ui.PostsViewModel
-import java.util.*
 
 
 class FirstFragment : Fragment(R.layout.fragment_first) {
+
+    companion object{
+        private var getPostFlag:Boolean = false
+    }
 
     lateinit var viewModel: PostsViewModel
     lateinit var postsReciclerAdapter: PostsReciclerAdapter
@@ -39,8 +42,8 @@ class FirstFragment : Fragment(R.layout.fragment_first) {
         viewModel = (activity as PostsActivity).viewModel
         observeGitHubRepos()
         setupRecyclerView()
-        viewModel.getPosts()
-
+        viewModel.insertPostfromApi(getPostFlag)
+        getPostFlag=true
     }
 
     private fun observeGitHubRepos() {
