@@ -20,6 +20,14 @@ import kotlinx.coroutines.launch
 
 @Suppress("DEPRECATION")
 class SecondFragment : BaseFragment() {
+
+    companion object {
+        fun newInstance(): SecondFragment {
+            return SecondFragment()
+        }
+
+    }
+
     private lateinit var binding: FragmentSecondBinding
     private lateinit var viewModel: PostsViewModel
     lateinit var postsReciclerAdapter: PostsReciclerAdapter
@@ -32,7 +40,6 @@ class SecondFragment : BaseFragment() {
         inflater.inflate(R.layout.fragment_second, container, false)
         binding = FragmentSecondBinding.inflate(inflater, container, false)
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -52,65 +59,27 @@ class SecondFragment : BaseFragment() {
             val id: Int = binding.etId.text.toString().toInt()
             val title:String = binding.etAddTitle.text.toString()
             val body:String = binding.etAddBody.text.toString()
-            println("SecondFragment ->setupListeners()")
             createPost(id, title, body)
         }
         binding.btnGetPost.setOnClickListener {
             internalCoroutineGetPost()
         }
-        binding.btnGetPosFromApi.setOnClickListener {
+     /*   binding.btnGetPosFromApi.setOnClickListener {
             viewModel.insertPostfromApi()
-        }
+        }*/
     }
 
     private fun createPost(id: Int, title: String, body: String) {
         if (viewModel.createPost(id,title, body)
         ) {
-            println("SecondFragment ->createPost()-if")
+            Toast.makeText(requireContext(), "Post created", Toast.LENGTH_SHORT)
+                .show()
         } else {
-            println("SecondFragment ->createPost()-else")
             Toast.makeText(requireContext(), "Error. Please, check inputs", Toast.LENGTH_SHORT)
                 .show()
         }
     }
 
-    companion object {
-        fun newInstance(): SecondFragment {
-            return SecondFragment()
-        }
-    }
-
-    private fun saveNote(postsResponse: PostsResponse) {
-        class SaveNote : AsyncTask<Void, Void, Void>() {
-            override fun doInBackground(vararg params: Void?): Void? {
-                //  PostsDB.invoke(activity!!).getPostDao().insertUserPost(postsResponse)
-                return null
-            }
-
-            override fun onPostExecute(result: Void?) {
-                super.onPostExecute(result)
-                println("    Toast.makeText(activity,\"Finally\",Toast.LENGTH_LONG).show()")
-                Toast.makeText(activity, "Finally", Toast.LENGTH_LONG).show()
-            }
-        }
-        SaveNote().execute()
-    }
-
-    fun internalCoroutineAddPost() {
-        launch {
-            val postsResponse = PostsResponse(
-                null,
-                20,
-                "internalCoroutineAddPost___Title",
-                "internalCoroutineAddPost___Body"
-            )
-            context?.let {
-                PostsDB(it).getPostDao().insertUserPost(postsResponse)
-                println("YES!)1")
-                it.toast("YES!)")
-            }
-        }
-    }
 
     fun internalCoroutineGetPost() {
         launch {

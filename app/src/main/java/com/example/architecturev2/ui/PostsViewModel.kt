@@ -1,14 +1,16 @@
 package com.example.architecturev2.ui
 
+import android.content.Context
+import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.architecturev2.db.PostsDB
+import com.example.architecturev2.domain.SortingUseCase
 import com.example.architecturev2.domain.ValidationPost
 import com.example.architecturev2.models.PostsResponse
 import com.example.architecturev2.repository.PostsRepository
-import com.example.architecturev2.repository.UserRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -17,13 +19,13 @@ class PostsViewModel /*@Inject constructor */(val postsRepository: PostsReposito
     val _posts = MutableLiveData<List<PostsResponse>>()
     val post: LiveData<List<PostsResponse>> = _posts
 
-    fun getPosts() = viewModelScope.launch(Dispatchers.Main) {
-        val response = postsRepository.getPosts()
-        _posts.setValue(response.body())
-    }
+    /* fun getPosts() = viewModelScope.launch(Dispatchers.Main) {
+         val response = postsRepository.getPosts()
+         _posts.setValue(response.body())
+     }*/
 
     fun createPost(userId: Int, title: String, body: String): Boolean {
-        return if (ValidationPost(title, body).invoke() && userId > 10) {
+        return if (ValidationPost(userId, title, body).invoke()/* && userId > 10*/) {
             println("PostsViewModel ->createPost() ->if")
             insertPost(
                 userId = userId,
@@ -43,15 +45,24 @@ class PostsViewModel /*@Inject constructor */(val postsRepository: PostsReposito
         viewModelScope.launch(Dispatchers.IO) {
             println("PostsViewModel ->insertPost()")
             postsRepository.insertUserPostLocal(userId, title, body)
+            val postsResponseFromDB = postsRepository.getPostsFromDB()
+            _posts.postValue(postsResponseFromDB)
         }
-        //getPosts()
     }
 
-    fun insertPostfromApi() {
+    fun insertPostfromApi(getPostFlag: Boolean) {
+
         viewModelScope.launch(Dispatchers.IO) {
-            val response = postsRepository.getPosts().body()
-            println("PostsViewModel ->insertPost()" + response)
-            saveDataToLocal(response)
+            if (postsRepository.postsDB.getPostDao().getAllPosts().isEmpty()) {
+                val response = postsRepository.getPosts()
+                //  _posts.postValue(response.body())
+                println("PostsViewModel ->insertPost()" + response.body())
+                val sortedPostsResponse = SortingUseCase(response.body()).sortPostsResponse()
+                saveDataToLocal(sortedPostsResponse)
+            } else {
+                val postsResponseFromDB = postsRepository.getPostsFromDB()
+                _posts.postValue(postsResponseFromDB)
+            }
         }
     }
 
@@ -65,7 +76,10 @@ class PostsViewModel /*@Inject constructor */(val postsRepository: PostsReposito
                 )
             )
         }
+        val postsResponseFromDB = postsRepository.getPostsFromDB()
+        _posts.postValue(postsResponseFromDB)
     }
+
     private suspend fun insertUserPostFromApi(postsResponse: PostsResponse) {
         postsRepository.insertUserPostFromApi(postsResponse)
     }

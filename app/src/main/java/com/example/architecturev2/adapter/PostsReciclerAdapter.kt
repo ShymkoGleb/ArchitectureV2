@@ -19,6 +19,7 @@ import kotlinx.android.synthetic.main.item_posts.view.*
 class PostsReciclerAdapter : RecyclerView.Adapter<PostsReciclerAdapter.PostsViewHolder>() {
 
     private val items = mutableListOf<PostsResponse>()
+   // private val items = <PostsResponse>()
 
     inner class PostsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
@@ -39,14 +40,30 @@ class PostsReciclerAdapter : RecyclerView.Adapter<PostsReciclerAdapter.PostsView
             tvUserID.text = article.userId.toString()
             tvTitle.text = article.title
             tvBody.text = article.body
-            rvGeneralID
+            rvGeneralID.setBackgroundColor(Color.parseColor("#FFFFFF"))
+
+
 
         }
     }
 
-    fun updateAdapter(newList: List<PostsResponse>) {
+    fun updateAdapter(postsResponse: List<PostsResponse>) {
         items.clear()
-        items.addAll(newList)
+        items.addAll(postsResponse)
         notifyDataSetChanged()
     }
+
+    fun colorSetup(){
+
+    }
 }
+//
+//if (model.status == UserStatus.NORMAL) {
+//    binding.tvBody.setBackgroundColor(Color.parseColor("#FFFFFF"))
+//}
+//else if (model.status == UserStatus.WARNING) {
+//    binding.tvBody.setBackgroundColor(Color.parseColor("#FFD900"))
+//}
+//else if (model.status == UserStatus.BANNED) {
+//    binding.tvBody.setBackgroundColor(Color.parseColor("#FF0000"))
+//}
