@@ -2,8 +2,9 @@ package com.example.architecturev2.domain
 
 import com.example.architecturev2.models.PostsResponse
 import com.example.architecturev2.repository.UserRepository
+import javax.inject.Inject
 
-class ColorSetup(private val postsResponse: PostsResponse)
+class ColorSetup @Inject constructor(private val postsResponse: PostsResponse)
 {
     fun colorSetup():String{
         val color = "#FFFFFF"

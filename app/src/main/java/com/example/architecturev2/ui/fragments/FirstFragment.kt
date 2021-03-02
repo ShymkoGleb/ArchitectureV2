@@ -9,14 +9,18 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.architecturev2.R
 import com.example.architecturev2.adapter.PostsReciclerAdapter
 import com.example.architecturev2.databinding.FragmentFirstBinding
+import com.example.architecturev2.di.AppModule
+import com.example.architecturev2.di.DaggerAppComponent
 import com.example.architecturev2.models.PostsResponse
 import com.example.architecturev2.ui.PostsActivity
 import com.example.architecturev2.ui.PostsViewModel
+import javax.inject.Inject
 
 
 class FirstFragment : Fragment(R.layout.fragment_first) {
-
+    @Inject
     lateinit var viewModel: PostsViewModel
+    @Inject
     lateinit var postsReciclerAdapter: PostsReciclerAdapter
     lateinit var binding: FragmentFirstBinding
 
@@ -32,7 +36,8 @@ class FirstFragment : Fragment(R.layout.fragment_first) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = (activity as PostsActivity).viewModel
+        setupDagger()
+//        viewModel = (activity as PostsActivity).viewModel
         observeGitHubRepos()
         setupRecyclerView()
         viewModel.insertPostfromApi()
@@ -54,5 +59,13 @@ class FirstFragment : Fragment(R.layout.fragment_first) {
 
     private fun updateGitHubRepos(items: List<PostsResponse>) {
         postsReciclerAdapter?.updateAdapter(items)
+    }
+
+    private fun setupDagger() {
+        DaggerAppComponent
+            .builder()
+            .appModule(AppModule(requireContext()))
+            .build()
+            .injectFragment1(this)
     }
 }

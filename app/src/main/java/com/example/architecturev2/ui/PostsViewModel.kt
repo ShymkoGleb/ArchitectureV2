@@ -13,8 +13,9 @@ import com.example.architecturev2.models.PostsResponse
 import com.example.architecturev2.repository.PostsRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class PostsViewModel /*@Inject constructor */(val postsRepository: PostsRepository) : ViewModel() {
+class PostsViewModel @Inject constructor(val postsRepository: PostsRepository) : ViewModel() {
 
     val _posts = MutableLiveData<List<PostsResponse>>()
     val post: LiveData<List<PostsResponse>> = _posts
@@ -46,7 +47,6 @@ class PostsViewModel /*@Inject constructor */(val postsRepository: PostsReposito
     }
 
     fun insertPostfromApi() {
-
         viewModelScope.launch(Dispatchers.IO) {
             if (postsRepository.postsDB.getPostDao().getAllPosts().isEmpty()) {
                 val response = postsRepository.getPosts()

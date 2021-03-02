@@ -9,8 +9,9 @@ import com.example.architecturev2.R
 import com.example.architecturev2.domain.ColorSetup
 import com.example.architecturev2.models.PostsResponse
 import kotlinx.android.synthetic.main.item_posts.view.*
+import javax.inject.Inject
 
-class PostsReciclerAdapter : RecyclerView.Adapter<PostsReciclerAdapter.PostsViewHolder>() {
+class PostsReciclerAdapter @Inject constructor() : RecyclerView.Adapter<PostsReciclerAdapter.PostsViewHolder>() {
 
     private val items = mutableListOf<PostsResponse>()
 

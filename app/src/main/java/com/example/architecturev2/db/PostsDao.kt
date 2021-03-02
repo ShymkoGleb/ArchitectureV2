@@ -15,5 +15,4 @@ interface PostsDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertUserPost(post: PostsResponse)
-
 }

@@ -6,21 +6,31 @@
     android:layout_height="match_parent"
     tools:context=".ui.fragments.SecondFragment">
 
+    <TextView
+        android:id="@+id/tvSecondFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tvSecondFragmentText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <EditText
         android:id="@+id/etId"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/layoutmargine"
+        android:hint="@string/etIdHint"
         android:inputType="number"
-        android:hint="User Id must be > 10"
         android:lines="1"
+        android:maxLength="1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/tvSecondFragment" />
 
     <EditText
         android:id="@+id/etAddTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="etAddTitle"
+        android:hint="@string/etAddTitleHint"
         android:lines="1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etId" />
@@ -29,7 +39,7 @@
         android:id="@+id/etAddBody"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="etAddBody"
+        android:hint="@string/etAddBodyHint"
         android:lines="2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/etAddTitle" />
@@ -38,7 +48,7 @@
         android:id="@+id/btnAddPost"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add Post"
+        android:text="@string/btnAddPostText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etAddBody" />

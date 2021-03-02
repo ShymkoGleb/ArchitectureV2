@@ -1,7 +1,9 @@
 package com.example.architecturev2.domain
 
+import javax.inject.Inject
 
-class ValidationPost(
+
+class ValidationPost @Inject constructor(
     private val userId:Int,
     private val title: String,
     private val body: String,
@@ -11,8 +13,12 @@ class ValidationPost(
     }
 
     fun invoke(): Boolean {
-        if (userId<10){
-            println("ValidationPost->postTitle.length < 3 || postTitle.length > 50")
+     /*   if(userId.toString().length>10){
+            println("(userId.toString().length>10")
+            return false
+        }*/
+        if (userId<10 ){
+            println("userId<10")
             return false
         }
 

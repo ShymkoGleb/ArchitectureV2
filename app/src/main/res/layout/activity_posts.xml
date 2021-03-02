@@ -10,24 +10,24 @@
         android:id="@+id/btnFragment1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Fragment1"
+        android:text="@string/btnFragment1Text"
         app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="@dimen/marginStart"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btnFragment2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Fragment2"
+        android:text="@string/btnFragment2Text"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/btnFragment1"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginEnd="@dimen/marginEnd"/>
 
     <FrameLayout
         android:id="@+id/flFragmentLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnFragment1" />
