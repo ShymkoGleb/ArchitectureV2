@@ -11,6 +11,4 @@ data class PostsResponse (
     @SerializedName("userId") val userId: Int? = null,
     @SerializedName("title") val title: String? = null,
     @SerializedName("body") val body: String? = null
-){
-
-}
+)

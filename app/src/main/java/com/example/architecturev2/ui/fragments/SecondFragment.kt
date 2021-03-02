@@ -58,6 +58,9 @@ class SecondFragment : BaseFragment() {
         binding.btnGetPost.setOnClickListener {
             internalCoroutineGetPost()
         }
+        binding.btnGetPosFromApi.setOnClickListener {
+            viewModel.insertPostfromApi()
+        }
     }
 
     private fun createPost(id: Int, title: String, body: String) {
