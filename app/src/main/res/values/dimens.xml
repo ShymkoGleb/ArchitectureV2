@@ -7,4 +7,5 @@
     <dimen name="textSize">15sp</dimen>
     <dimen name="padding">8sp</dimen>
     <dimen name="marginEnd">20dp</dimen>
+    <dimen name="maxLength">7</dimen>
 </resources>

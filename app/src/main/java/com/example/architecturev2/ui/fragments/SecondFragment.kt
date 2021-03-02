@@ -28,7 +28,6 @@ import javax.inject.Inject
 class SecondFragment : Fragment(R.layout.fragment_second) {
 
     private lateinit var binding: FragmentSecondBinding
-
     //@Inject
     private lateinit var viewModel: PostsViewModel
 
@@ -48,13 +47,13 @@ class SecondFragment : Fragment(R.layout.fragment_second) {
         setupListeners()
     }
 
-    fun setupDagger() {
+ /*   fun setupDagger() {
         DaggerAppComponent
             .builder()
             .appModule(AppModule(requireContext()))
             .build()
             .getPostViewFactory()
-    }
+    }*/
 
     private fun setupListeners() {
         binding.btnAddPost.setOnClickListener {
