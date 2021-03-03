@@ -28,8 +28,8 @@ import javax.inject.Inject
 class SecondFragment : Fragment(R.layout.fragment_second) {
 
     private lateinit var binding: FragmentSecondBinding
-    //@Inject
-    private lateinit var viewModel: PostsViewModel
+    @Inject
+    lateinit var viewModel: PostsViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,18 +42,18 @@ class SecondFragment : Fragment(R.layout.fragment_second) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = (activity as PostsActivity).viewModel
-    //    setupDagger()
+       // viewModel = (activity as PostsActivity).viewModel
+        setupDagger()
         setupListeners()
     }
 
- /*   fun setupDagger() {
+    fun setupDagger() {
         DaggerAppComponent
             .builder()
             .appModule(AppModule(requireContext()))
             .build()
-            .getPostViewFactory()
-    }*/
+            .injectFragment2(this)
+    }
 
     private fun setupListeners() {
         binding.btnAddPost.setOnClickListener {
