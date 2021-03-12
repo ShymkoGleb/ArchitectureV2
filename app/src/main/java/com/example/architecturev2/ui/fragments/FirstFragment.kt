@@ -12,7 +12,6 @@ import com.example.architecturev2.databinding.FragmentFirstBinding
 import com.example.architecturev2.di.AppModule
 import com.example.architecturev2.di.DaggerAppComponent
 import com.example.architecturev2.models.PostsResponse
-import com.example.architecturev2.ui.PostsActivity
 import com.example.architecturev2.ui.PostsViewModel
 import javax.inject.Inject
 
@@ -37,7 +36,6 @@ class FirstFragment : Fragment(R.layout.fragment_first) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupDagger()
-//        viewModel = (activity as PostsActivity).viewModel
         observeGitHubRepos()
         setupRecyclerView()
         viewModel.insertPostfromApi()

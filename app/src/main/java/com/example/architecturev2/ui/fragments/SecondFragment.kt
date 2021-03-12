@@ -1,26 +1,16 @@
 package com.example.architecturev2.ui.fragments
 
-import android.content.Context
-import android.os.AsyncTask
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.architecturev2.R
-import com.example.architecturev2.adapter.PostsReciclerAdapter
 import com.example.architecturev2.databinding.FragmentSecondBinding
-import com.example.architecturev2.db.PostsDB
 import com.example.architecturev2.di.AppModule
 import com.example.architecturev2.di.DaggerAppComponent
-import com.example.architecturev2.models.PostsResponse
-import com.example.architecturev2.repository.PostsRepository
-import com.example.architecturev2.ui.PostViewModelProviderFactory
-import com.example.architecturev2.ui.PostsActivity
 import com.example.architecturev2.ui.PostsViewModel
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
@@ -42,7 +32,6 @@ class SecondFragment : Fragment(R.layout.fragment_second) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-       // viewModel = (activity as PostsActivity).viewModel
         setupDagger()
         setupListeners()
     }

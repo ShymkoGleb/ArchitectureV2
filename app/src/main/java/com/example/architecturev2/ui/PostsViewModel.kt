@@ -1,12 +1,9 @@
 package com.example.architecturev2.ui
 
-import android.content.Context
-import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.architecturev2.db.PostsDB
 import com.example.architecturev2.domain.SortingUseCase
 import com.example.architecturev2.domain.ValidationPost
 import com.example.architecturev2.models.PostsResponse

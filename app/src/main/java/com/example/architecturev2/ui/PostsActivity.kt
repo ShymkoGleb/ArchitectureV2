@@ -2,12 +2,8 @@ package com.example.architecturev2.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.lifecycle.ViewModelProvider
 import com.example.architecturev2.R
-import com.example.architecturev2.adapter.PostsReciclerAdapter
 import com.example.architecturev2.databinding.ActivityPostsBinding
-import com.example.architecturev2.db.PostsDB
 import com.example.architecturev2.di.AppModule
 import com.example.architecturev2.di.DaggerAppComponent
 import com.example.architecturev2.repository.PostsRepository
