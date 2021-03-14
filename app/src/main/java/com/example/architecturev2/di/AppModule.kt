@@ -10,6 +10,7 @@ import com.example.architecturev2.models.PostsResponse
 import com.example.architecturev2.repository.PostsRepository
 import com.example.architecturev2.ui.PostViewModelProviderFactory
 import com.google.gson.GsonBuilder
+import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
@@ -26,6 +27,7 @@ class AppModule(@NonNull private val context: Context) {
     fun provideRetrofit(gsonConverterFactory: GsonConverterFactory): Retrofit {
         return Retrofit.Builder()
             .baseUrl("https://api.github.com/")
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(gsonConverterFactory)
             .build()
     }
@@ -38,11 +40,7 @@ class AppModule(@NonNull private val context: Context) {
         )
     }
 
-    @Provides
-    @Singleton
-    fun provideGitHubReposApi(retrofit: Retrofit): PostsAPI {
-        return retrofit.create(PostsAPI::class.java)
-    }
+
 
 
     @Provides

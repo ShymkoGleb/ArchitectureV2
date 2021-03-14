@@ -13,21 +13,24 @@ class PostsRepository @Inject constructor(
 
     fun getPosts() = RetrofiteInstance.api.getPosts()
 
-//    fun insertUserPostLocal(userId: Int, title: String, body: String) {
-//        println("PostsRepository -> insertUserPostLocal()")
-//        var testPost = PostsResponse(
-//            null,
-//            userId,
-//            title,
-//            body
-//        )
-//        postsDB.getPostDao().insertUserPost(post = testPost)
-//    }
+    fun insertUserPostLocal(userId: Int, title: String, body: String) {
+        println("PostsRepository -> insertUserPostLocal()")
+        var testPost = PostsResponse(
+            null,
+            userId,
+            title,
+            body
+        )
+        postsDB.getPostDao().insertUserPost(post = testPost)
+    }
 
-//    fun insertUserPostFromApi(postsResponse: Observable<PostsResponse>) {
-//        println("PostsRepository -> insertUserPostFromApi()")
-//        postsDB.getPostDao().insertUserPost(postsResponse)
-//    }
-//
-//    suspend fun getPostsFromDB()=  postsDB.getPostDao().getAllPosts()
+    fun insertUserPostFromApi(postsResponse: PostsResponse) {
+        println("PostsRepository -> insertUserPostFromApi()")
+        postsDB.getPostDao().insertUserPost(postsResponse)
+    }
+
+     fun getPostsFromDB():List<PostsResponse>{
+         println("PostsRepository -> getPostsFromDB()")
+         return postsDB.getPostDao().getAllPosts()
+     }
 }

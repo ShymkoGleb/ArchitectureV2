@@ -22,30 +22,29 @@ class PostsViewModel @Inject constructor(val postsRepository: PostsRepository) :
     val post: LiveData<List<PostsResponse>> = _posts
 
     fun createPost(userId: Int, title: String, body: String): Boolean {
-        return if (ValidationPost(userId, title, body).invoke()) {
+        if (ValidationPost(userId, title, body).invoke()) {
             println("PostsViewModel ->createPost() ->if")
-//            insertPost(
-//                userId = userId,
-//                title = title,
-//                body = body
-//            )
+            insertPost(
+                userId = userId,
+                title = title,
+                body = body
+            )
             println("PostsViewModel ->createPost() ->true")
             return true
-            true
         } else {
             println("PostsViewModel ->createPost() ->false")
-            false
+            return false
         }
     }
 
-//    fun insertPost(userId: Int, title: String, body: String) {
-//        viewModelScope.launch(Dispatchers.IO) {
-//            println("PostsViewModel ->insertPost()")
-//            postsRepository.insertUserPostLocal(userId, title, body)
-//            val postsResponseFromDB = postsRepository.getPostsFromDB()
-//            _posts.postValue(postsResponseFromDB)
-//        }
-//    }
+    fun insertPost(userId: Int, title: String, body: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            println("PostsViewModel ->insertPost()")
+            postsRepository.insertUserPostLocal(userId, title, body)
+            val postsResponseFromDB = postsRepository.getPostsFromDB()
+            _posts.postValue(postsResponseFromDB)
+        }
+    }
 
 //    fun insertPostfromApi() {
 ////        viewModelScope.launch(Dispatchers.IO) {
@@ -66,28 +65,27 @@ class PostsViewModel @Inject constructor(val postsRepository: PostsRepository) :
 //            } else {
 //                val postsResponseFromDB = postsRepository.getPostsFromDB()
 //                _posts.postValue(postsResponseFromDB)
+
+
+    fun saveDataToLocal(listOfPosts: List<PostsResponse>?) {
+        listOfPosts?.forEach { postsResponse ->
+            insertUserPostFromApi(
+                PostsResponse(
+                    title = postsResponse.title,
+                    body = postsResponse.body,
+                    userId = postsResponse.userId
+                )
+            )
+        }
+        val postsResponseFromDB = postsRepository.getPostsFromDB()
+        _posts.postValue(postsResponseFromDB)
     }
 
-//}
-
-//
-//fun saveDataToLocal(listOfPosts: List<PostsResponse>?) {
-//    listOfPosts?.forEach { postsResponse ->
-//        insertUserPostFromApi(
-//            PostsResponse(
-//                title = postsResponse.title,
-//                body = postsResponse.body,
-//                userId = postsResponse.userId
-//            )
-//        )
-//    }
-//    val postsResponseFromDB = postsRepository.getPostsFromDB()
-//    _posts.postValue(postsResponseFromDB)
-//}
-//
-//fun insertUserPostFromApi(postsResponse: PostsResponse) {
-//    postsRepository.insertUserPostFromApi(postsResponse)
-//}
+    //
+    fun insertUserPostFromApi(postsResponse: PostsResponse) {
+        postsRepository.insertUserPostFromApi(postsResponse)
+    }
 
 
+}
 

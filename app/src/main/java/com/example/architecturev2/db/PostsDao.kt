@@ -10,9 +10,9 @@ import io.reactivex.Observable
 
 @Dao
 interface PostsDao {
-//    @Query("SELECT * FROM post_response_table ORDER BY idKey DESC")
-//    fun getAllPosts(): Observable<List<PostsResponse>>
+    @Query("SELECT * FROM post_response_table ORDER BY idKey DESC")
+    fun getAllPosts(): List<PostsResponse>
 
-//    @Insert(onConflict = OnConflictStrategy.REPLACE)
-//    fun insertUserPost(post: PostsResponse)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertUserPost(post: PostsResponse)
 }

@@ -47,12 +47,10 @@ class FirstFragment : Fragment(R.layout.fragment_first) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupDagger()
-//      viewModel = (activity as PostsActivity).viewModel
-//      observeGitHubRepos()
+        observeGitHubRepos()
         setupRecyclerView()
-
         val compositeDisposable = CompositeDisposable()
-        compositeDisposable?.add(
+        compositeDisposable.add(
             postsRepository.getPosts()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
@@ -64,27 +62,20 @@ class FirstFragment : Fragment(R.layout.fragment_first) {
 
     private fun onFailure(t: Throwable) {
         Log.d("LOGD", "onFailure")
-        //   Toast.makeText(this, t.message, Toast.LENGTH_SHORT).show()
     }
 
     private fun onResponse(response: List<PostsResponse>) {
-
         updateGitHubRepos(response)
-        //  progress_bar.visibility = View.GONE
-//        recyclerView.apply {
-//            setHasFixedSize(true)
-//            layoutManager = LinearLayoutManager(this@MainActivity)
-//            adapter =
-//                MoviesAdapter(response.results)
+        //observeGitHubRepos()
     }
 
 
-    //    private fun observeGitHubRepos() {
-//        viewModel.post.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-//            updateGitHubRepos(it)
-//        })
-//    }
-//
+    private fun observeGitHubRepos() {
+        viewModel.post.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            updateGitHubRepos(it)
+        })
+    }
+
     private fun setupRecyclerView() {
         postsReciclerAdapter = PostsReciclerAdapter()
         binding.rvPosts.apply {
@@ -93,12 +84,10 @@ class FirstFragment : Fragment(R.layout.fragment_first) {
         }
     }
 
-    //
     private fun updateGitHubRepos(items: List<PostsResponse>) {
         postsReciclerAdapter?.updateAdapter(items)
     }
 
-    //
     fun setupDagger() {
         DaggerAppComponent
             .builder()
