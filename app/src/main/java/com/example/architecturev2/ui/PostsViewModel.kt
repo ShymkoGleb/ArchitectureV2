@@ -48,6 +48,25 @@ class PostsViewModel @Inject constructor(val postsRepository: PostsRepository) :
         }
     }
 
+    private fun onResponse(response: List<PostsResponse>) {
+        Log.d("LOGD", "FirstFragment -> onResponse()")
+        //val postsResponseFromDB = postsRepository.getPostsFromDB()
+
+        response?.forEach { postsResponse ->
+            insertUserPostFromApi(
+                PostsResponse(
+                    title = postsResponse.title,
+                    body = postsResponse.body,
+                    userId = postsResponse.userId
+                )
+            )
+
+         //     updateRepos(response)
+        }
+    }
+
+
+
 //    fun insertPostfromApi() {
 ////        viewModelScope.launch(Dispatchers.IO) {
 ////            if (postsRepository.postsDB.getPostDao().getAllPosts().isEmpty()) {

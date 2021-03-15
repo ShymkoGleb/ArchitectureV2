@@ -61,24 +61,25 @@ class FirstFragment : Fragment(R.layout.fragment_first) {
             postsRepository.getPosts()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({result->
+                .subscribe({ result ->
 //                    if (postsRepository.postsDB.getPostDao().getAllPosts().isEmpty()) {
 //                        println("RXJAVA -> if")
-                        Log.d("LOGD", "FirstFragment -> result")
-                       // reposCheck()
-                        onResponse(result)
+                    Log.d("LOGD", "FirstFragment -> RXJAVA() -> result")
+                    // reposCheck()
+                    onResponse(result)
 //                    } else {
 //                        println("RXJAVA -> else")
 //                    }
                 }, { t ->
                     Log.d("LOGD", "FirstFragment -> onFailure")
-                    onFailure(t) })
+                    onFailure(t)
+                })
         )
     }
 
 
-    private fun reposCheck(){
-        var check =  postsRepository.postsDB.getPostDao().getAllPosts().isEmpty()
+    private fun reposCheck() {
+        var check = postsRepository.postsDB.getPostDao().getAllPosts().isEmpty()
         Log.d("LOGD", "FirstFragment -> reposCheck() $check")
     }
 
@@ -87,11 +88,7 @@ class FirstFragment : Fragment(R.layout.fragment_first) {
         Log.d("LOGD", "FirstFragment -> onFailure()")
     }
 
-    private fun onResponse(response: List<PostsResponse>) {
-        Log.d("LOGD", "FirstFragment -> onResponse()")
-        //val postsResponseFromDB = postsRepository.getPostsFromDB()
-        updateRepos(response)
-    }
+
 
     //    fun saveDataToLocal(listOfPosts: List<PostsResponse>?) {
 //        listOfPosts?.forEach { postsResponse ->
@@ -107,10 +104,12 @@ class FirstFragment : Fragment(R.layout.fragment_first) {
 //    }
 //
 //    //
-//    fun insertUserPostFromApi(postsResponse: PostsResponse) {
-//        postsRepository.insertUserPostFromApi(postsResponse)
-//    }
-//
+    fun insertUserPostFromApi(postsResponse: PostsResponse) {
+        Log.d("LOGD", "FirstFragment -> insertUserPostFromApi()")
+        postsRepository.insertUserPostFromApi(postsResponse)
+    }
+
+    //
 //
     private fun observeRepos() {
         Log.d("LOGD", "FirstFragment -> observeRepos()")
