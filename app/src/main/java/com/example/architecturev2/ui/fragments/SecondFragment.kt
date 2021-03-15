@@ -68,4 +68,9 @@ class SecondFragment : Fragment(R.layout.fragment_second) {
                 .show()
         }
     }
+
+
+    inner class SecondFragmentTest{
+       
+    }
 }
