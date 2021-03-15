@@ -64,12 +64,22 @@ class FirstFragment : Fragment(R.layout.fragment_first) {
                 .subscribe({result->
 //                    if (postsRepository.postsDB.getPostDao().getAllPosts().isEmpty()) {
 //                        println("RXJAVA -> if")
+                        Log.d("LOGD", "FirstFragment -> result")
+                       // reposCheck()
                         onResponse(result)
 //                    } else {
 //                        println("RXJAVA -> else")
 //                    }
-                }, { t -> onFailure(t) })
+                }, { t ->
+                    Log.d("LOGD", "FirstFragment -> onFailure")
+                    onFailure(t) })
         )
+    }
+
+
+    private fun reposCheck(){
+        var check =  postsRepository.postsDB.getPostDao().getAllPosts().isEmpty()
+        Log.d("LOGD", "FirstFragment -> reposCheck() $check")
     }
 
 
