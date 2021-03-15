@@ -1,6 +1,7 @@
 package com.example.architecturev2.ui.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -46,10 +47,14 @@ class SecondFragment : Fragment(R.layout.fragment_second) {
 
     private fun setupListeners() {
         binding.btnAddPost.setOnClickListener {
-            val id: Int = binding.etId.text.toString().toInt()
-            val title: String = binding.etAddTitle.text.toString()
-            val body: String = binding.etAddBody.text.toString()
-            createPost(id, title, body)
+            val id: String? = binding.etId.text.toString()
+            val title: String? = binding.etAddTitle.text.toString()
+            val body: String? = binding.etAddBody.text.toString()
+            if (id.isNullOrEmpty() || title.isNullOrEmpty() || body.isNullOrEmpty()){
+            }else{
+                val idInt: Int = id.toInt()
+                createPost(idInt, title, body)
+            }
         }
     }
 
