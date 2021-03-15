@@ -1,5 +1,6 @@
 package com.example.architecturev2.repository
 
+import android.util.Log
 import com.example.architecturev2.api.RetrofiteInstance
 import com.example.architecturev2.db.PostsDB
 import com.example.architecturev2.models.PostsResponse
@@ -13,8 +14,9 @@ class PostsRepository @Inject constructor(
 
     fun getPosts() = RetrofiteInstance.api.getPosts()
 
-    fun insertUserPostLocal(userId: Int, title: String, body: String) {
-        println("PostsRepository -> insertUserPostLocal()")
+    fun insertUserPostLocal(userId: Int?, title: String?, body: String?) {
+        Log.d("LOGD", "PostsRepository -> insertUserPostLocal()")
+        println("")
         var testPost = PostsResponse(
             null,
             userId,
@@ -25,12 +27,12 @@ class PostsRepository @Inject constructor(
     }
 
     fun insertUserPostFromApi(postsResponse: PostsResponse) {
-        println("PostsRepository -> insertUserPostFromApi()")
+        Log.d("LOGD", "PostsRepository -> insertUserPostFromApi()")
         postsDB.getPostDao().insertUserPost(postsResponse)
     }
 
      fun getPostsFromDB():List<PostsResponse>{
-         println("PostsRepository -> getPostsFromDB()")
+         Log.d("LOGD", "PostsRepository -> getPostsFromDB()")
          return postsDB.getPostDao().getAllPosts()
      }
 }

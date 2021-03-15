@@ -1,6 +1,7 @@
 package com.example.architecturev2.ui
 
 import android.content.Context
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.LiveData
@@ -21,23 +22,24 @@ class PostsViewModel @Inject constructor(val postsRepository: PostsRepository) :
     val _posts = MutableLiveData<List<PostsResponse>>()
     val post: LiveData<List<PostsResponse>> = _posts
 
-    fun createPost(userId: Int, title: String, body: String): Boolean {
+    fun createPost(userId: Int?, title: String?, body: String?): Boolean {
         if (ValidationPost(userId, title, body).invoke()) {
-            println("PostsViewModel ->createPost() ->if")
+            Log.d("LOGD", "PostsViewModel ->createPost() ->if")
             insertPost(
                 userId = userId,
                 title = title,
                 body = body
             )
-            println("PostsViewModel ->createPost() ->true")
+            Log.d("LOGD", "PostsViewModel ->createPost() ->true")
             return true
         } else {
-            println("PostsViewModel ->createPost() ->false")
+            Log.d("LOGD", "PostsViewModel ->createPost() ->false")
             return false
         }
     }
 
-    fun insertPost(userId: Int, title: String, body: String) {
+    fun insertPost(userId: Int?, title: String?, body: String?) {
+        Log.d("LOGD", "PostsViewModel -> insertPost()")
         viewModelScope.launch(Dispatchers.IO) {
             println("PostsViewModel ->insertPost()")
             postsRepository.insertUserPostLocal(userId, title, body)
@@ -68,6 +70,7 @@ class PostsViewModel @Inject constructor(val postsRepository: PostsRepository) :
 
 
     fun saveDataToLocal(listOfPosts: List<PostsResponse>?) {
+        Log.d("LOGD", "PostsViewModel -> saveDataToLocal()")
         listOfPosts?.forEach { postsResponse ->
             insertUserPostFromApi(
                 PostsResponse(
@@ -83,6 +86,7 @@ class PostsViewModel @Inject constructor(val postsRepository: PostsRepository) :
 
     //
     fun insertUserPostFromApi(postsResponse: PostsResponse) {
+        Log.d("LOGD", "PostsViewModel ->insertUserPostFromApi()")
         postsRepository.insertUserPostFromApi(postsResponse)
     }
 

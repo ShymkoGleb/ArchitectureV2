@@ -40,9 +40,6 @@ class AppModule(@NonNull private val context: Context) {
         )
     }
 
-
-
-
     @Provides
     @Singleton
     fun provideViewModelFactory(repository: PostsRepository): PostViewModelProviderFactory =

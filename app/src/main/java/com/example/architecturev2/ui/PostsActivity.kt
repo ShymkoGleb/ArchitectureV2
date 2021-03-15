@@ -1,6 +1,7 @@
 package com.example.architecturev2.ui
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.ViewModelProvider
@@ -30,12 +31,14 @@ class PostsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_posts)
+        Log.d("LOGD", "PostsActivity -> onCreate()")
         setupDagger()
         setupbinding()
         setupListener()
     }
 
     private fun setupDagger() {
+        Log.d("LOGD", "PostsActivity -> setupDagger()")
         DaggerAppComponent
             .builder()
             .appModule(AppModule(this))
@@ -44,24 +47,30 @@ class PostsActivity : AppCompatActivity() {
     }
 
     private fun setupListener() {
+        Log.d("LOGD", "PostsActivity -> setupListener()")
         val firstFragment = FirstFragment()
         val secondFragment = SecondFragment()
         supportFragmentManager.beginTransaction().apply {
+            Log.d("LOGD", "PostsActivity -> setupListener() -> supportFragmentManager.beginTransaction()")
             replace(R.id.flFragmentLayout, firstFragment)
             commit()
         }
 
         binding.btnFragment1.setOnClickListener {
+            Log.d("LOGD", "PostsActivity -> setupListener() -> btnFragment1.setOnClickListener")
             supportFragmentManager.beginTransaction().apply {
+                Log.d("LOGD", "PostsActivity -> setupListener() -> btnFragment1.setOnClickListener -> supportFragmentManager.beginTransaction()")
                 replace(R.id.flFragmentLayout, firstFragment)
                 commit()
             }
         }
 
         binding.btnFragment2.setOnClickListener {
+            Log.d("LOGD", "PostsActivity -> setupListener() -> btnFragment2.setOnClickListener")
             supportFragmentManager.beginTransaction().apply {
-                replace(R.id.flFragmentLayout, secondFragment)
-                commit()
+                Log.d("LOGD", "PostsActivity -> setupListener() -> btnFragment2.setOnClickListener -> supportFragmentManager.beginTransaction()")
+               replace(R.id.flFragmentLayout, secondFragment)
+               commit()
             }
         }
     }

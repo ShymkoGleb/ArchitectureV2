@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.architecturev2.R
@@ -41,42 +40,78 @@ class FirstFragment : Fragment(R.layout.fragment_first) {
     ): View? {
         binding = FragmentFirstBinding.inflate(inflater, container, false)
         val view = binding.root
+        Log.d("LOGD", "FirstFragment -> onCreateView()")
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupDagger()
-        observeGitHubRepos()
         setupRecyclerView()
+        Log.d("LOGD", "FirstFragment -> onViewCreated()")
+        observeRepos()
+        RXJAVA()
+    }
+
+
+    private fun RXJAVA() {
         val compositeDisposable = CompositeDisposable()
+        Log.d("LOGD", "FirstFragment -> RXJAVA()")
         compositeDisposable.add(
             postsRepository.getPosts()
-                .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe({ response -> onResponse(response) }, { t -> onFailure(t) })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({result->
+//                    if (postsRepository.postsDB.getPostDao().getAllPosts().isEmpty()) {
+//                        println("RXJAVA -> if")
+                        onResponse(result)
+//                    } else {
+//                        println("RXJAVA -> else")
+//                    }
+                }, { t -> onFailure(t) })
         )
-        // viewModel.insertPostfromApi()
     }
 
 
     private fun onFailure(t: Throwable) {
-        Log.d("LOGD", "onFailure")
+        Log.d("LOGD", "FirstFragment -> onFailure()")
     }
 
     private fun onResponse(response: List<PostsResponse>) {
-        updateGitHubRepos(response)
-        //observeGitHubRepos()
+        Log.d("LOGD", "FirstFragment -> onResponse()")
+        //val postsResponseFromDB = postsRepository.getPostsFromDB()
+        updateRepos(response)
     }
 
-
-    private fun observeGitHubRepos() {
+    //    fun saveDataToLocal(listOfPosts: List<PostsResponse>?) {
+//        listOfPosts?.forEach { postsResponse ->
+//            insertUserPostFromApi(
+//                PostsResponse(
+//                    title = postsResponse.title,
+//                    body = postsResponse.body,
+//                    userId = postsResponse.userId
+//                )
+//            )
+//        }
+//
+//    }
+//
+//    //
+//    fun insertUserPostFromApi(postsResponse: PostsResponse) {
+//        postsRepository.insertUserPostFromApi(postsResponse)
+//    }
+//
+//
+    private fun observeRepos() {
+        Log.d("LOGD", "FirstFragment -> observeRepos()")
         viewModel.post.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-            updateGitHubRepos(it)
+            Log.d("LOGD", "FirstFragment -> observeRepos()")
+            updateRepos(it)
         })
     }
 
     private fun setupRecyclerView() {
+        Log.d("LOGD", "FirstFragment -> setupRecyclerView()")
         postsReciclerAdapter = PostsReciclerAdapter()
         binding.rvPosts.apply {
             adapter = postsReciclerAdapter
@@ -84,11 +119,13 @@ class FirstFragment : Fragment(R.layout.fragment_first) {
         }
     }
 
-    private fun updateGitHubRepos(items: List<PostsResponse>) {
+    private fun updateRepos(items: List<PostsResponse>) {
+        Log.d("LOGD", "FirstFragment -> updateRepos() __ Shows response in UI ")
         postsReciclerAdapter?.updateAdapter(items)
     }
 
     fun setupDagger() {
+        Log.d("LOGD", "FirstFragment -> setupDagger()")
         DaggerAppComponent
             .builder()
             .appModule(AppModule(requireContext()))

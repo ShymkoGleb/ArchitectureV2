@@ -3,6 +3,7 @@ package com.example.architecturev2.ui.fragments
 import android.content.Context
 import android.os.AsyncTask
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,16 +38,19 @@ class SecondFragment : Fragment(R.layout.fragment_second) {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentSecondBinding.inflate(inflater, container, false)
+        Log.d("LOGD", "SecondFragment -> onCreateView()")
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Log.d("LOGD", "SecondFragment -> onViewCreated()")
         setupDagger()
         setupListeners()
     }
 
     fun setupDagger() {
+        Log.d("LOGD", "SecondFragment -> setupDagger()")
         DaggerAppComponent
             .builder()
             .appModule(AppModule(requireContext()))
@@ -55,20 +59,31 @@ class SecondFragment : Fragment(R.layout.fragment_second) {
     }
 
     private fun setupListeners() {
+        Log.d("LOGD", "SecondFragment -> setupListeners()")
         binding.btnAddPost.setOnClickListener {
-            val id: Int = binding.etId.text.toString().toInt()
-            val title: String = binding.etAddTitle.text.toString()
-            val body: String = binding.etAddBody.text.toString()
-            createPost(id, title, body)
+            Log.d("LOGD", "SecondFragment -> setupListeners() -> btnAddPost.setOnClickListener()")
+            val id: String? = binding.etId.text.toString()
+            val title: String? = binding.etAddTitle.text.toString()
+            val body: String? = binding.etAddBody.text.toString()
+            if (id.isNullOrEmpty() || title.isNullOrEmpty() || body.isNullOrEmpty()){
+                Log.d("LOGD", "SecondFragment -> setupListeners() ->  if (id.isNullOrEmpty() || title.isNullOrEmpty() || body.isNullOrEmpty())")
+            }else{
+            val idInt: Int? = id.toInt()
+                id.toString()
+                createPost(idInt, title, body)
+            }
         }
     }
 
-    private fun createPost(id: Int, title: String, body: String) {
+    private fun createPost(id: Int?, title: String?, body: String?) {
+        Log.d("LOGD", "SecondFragment -> createPost()")
         if (viewModel.createPost(id, title, body)
         ) {
+            Log.d("LOGD", "SecondFragment -> createPost() ->if()")
             Toast.makeText(requireContext(), "Post created", Toast.LENGTH_SHORT)
                 .show()
         } else {
+            Log.d("LOGD", "SecondFragment -> createPost() ->else()")
             Toast.makeText(requireContext(), "Error. Please, check inputs", Toast.LENGTH_SHORT)
                 .show()
         }
